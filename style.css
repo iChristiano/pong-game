@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  background-color: rgba(39, 39, 39);
+  display: flex;
+  justify-content: center;
+  font-family: Arial, "Courier New", Courier, monospace;
+}
+
+canvas {
+  z-index: 10;
+  height: 90vh;
+  margin: 5vh auto;
+  border-radius: 6px;
+}
+
+.game-over-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 11;
+}
+
+.game-over-box {
+  width: 30vw;
+  height: 20vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(56, 56, 56);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  border-radius: 10px;
+}
+
+button {
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  background-color: rgb(195, 195, 195);
+  border: none;
+  height: 50px;
+  width: 200px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: Arial, "Courier New", Courier, monospace;
+}
+
+button:hover {
+  filter: brightness(80%);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+
+/* Smartphone */
+@media only screen and (max-device-width: 768px) {
+  canvas {
+    width: 98vw;
+    height: 98vh;
+    margin: 1vh 1vw;
+  }
+
+  .game-over-box {
+    width: 80vw;
+    height: 30vh;
+  }
+}
