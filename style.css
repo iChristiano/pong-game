@@ -11,6 +11,7 @@ canvas {
   height: 90vh;
   margin: 5vh auto;
   border-radius: 6px;
+  background-color: #9eabe4;
 }
 
 .game-over-container {

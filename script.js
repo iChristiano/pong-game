@@ -11,10 +11,16 @@ const centerCircleRadius = isMobile ? 50 : 75;
 const screenWidth = window.innerWidth;
 const canvasPosition = screenWidth / 2 - width / 2;
 const strokeColor = 'white';
-const playgroundColor = '#3CB371';
 const lineGap = 6;
 const playgroundFont = 'Arial';
-const playgroundFontSize = 50;
+const playgroundFontSize = 40;
+const playgroundFontColorOpaque50 = 'rgba(255, 255, 255, 0.5)';
+const playgroundFontColorOpaque90 = 'rgba(255, 255, 255, 0.9)';
+const backgroundGradientStartColor = '#0499f2';
+const backgroundGradientEndColor = '#63a4ff';
+
+let playgroundFontColorComputer = playgroundFontColorOpaque50;
+let playgroundFontColorPlayer = playgroundFontColorOpaque90;
 
 // Player
 const namePlayer = 'Player 1'; 
@@ -65,8 +71,11 @@ let isNewGame = true;
 
 // Render Everything on Canvas
 function renderCanvas() {
-  // Canvas Background
-  context.fillStyle = playgroundColor;
+  // Canvas Background Gradient
+  let grd = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+  grd.addColorStop(0, backgroundGradientStartColor);
+  grd.addColorStop(1, backgroundGradientEndColor);
+  context.fillStyle = grd;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   // Paddle Color
@@ -98,7 +107,7 @@ function renderCanvas() {
   context.setLineDash([lineGap]);
   context.moveTo(0, paddleOffsetY);
   context.lineTo(canvas.width, paddleOffsetY);
-  context.strokeStyle = "rgba(255, 255, 255, 0.5)";
+  context.strokeStyle = playgroundFontColorOpaque50;
   context.stroke();
 
   // Dashed Bottom Line
@@ -106,7 +115,7 @@ function renderCanvas() {
   context.setLineDash([lineGap]);
   context.moveTo(0, canvas.height - paddleOffsetY);
   context.lineTo(canvas.width, canvas.height - paddleOffsetY);
-  context.strokeStyle = "rgba(255, 255, 255, 0.5)";
+  context.strokeStyle = playgroundFontColorOpaque50;
   context.stroke();
 
   // Ball
@@ -127,9 +136,10 @@ function renderCanvas() {
   context.font = `${playgroundFontSize}px ${playgroundFont}`;
   context.textAlign = 'center';
   context.textBaseline = 'middle';
-  context.fillStyle = "rgba(255, 255, 255, 0.5)";
-  context.fillText('Pong', canvas.width/2, canvas.height * 3/16); 
-  context.fillText('Game', canvas.width/2, canvas.height * 13/16); 
+  context.fillStyle = playgroundFontColorComputer;
+  context.fillText(nameComputer, canvas.width/2, canvas.height * 3/16); 
+  context.fillStyle = playgroundFontColorPlayer;
+  context.fillText(namePlayer, canvas.width/2, canvas.height * 13/16); 
 }
 
 // Create Canvas Element
@@ -160,6 +170,13 @@ function ballMove() {
 
 // Determine What Ball Bounces Off, Score Points, Reset Ball
 function ballBoundaries() {
+  if (ballY < height / 2) {
+    playgroundFontColorComputer = playgroundFontColorOpaque90;
+    playgroundFontColorPlayer = playgroundFontColorOpaque50;
+  } else {
+    playgroundFontColorComputer = playgroundFontColorOpaque50;
+    playgroundFontColorPlayer = playgroundFontColorOpaque90;
+  }
   // Bounce off Left Wall
   if (ballX < 0 && speedX < 0) {
     speedX = -speedX;
