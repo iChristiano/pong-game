@@ -12,13 +12,13 @@ const screenWidth = window.innerWidth;
 const canvasPosition = screenWidth / 2 - width / 2;
 const strokeColor = 'white';
 const playgroundColor = '#3CB371';
-const scoreSize = 26;
-const scoreFont = 'Arial';
 const lineGap = 6;
+const playgroundFont = 'Arial';
+const playgroundFontSize = 50;
 
 // Player
-const namePlayer = 'PLAYER 1'; 
-const nameComputer = 'A.I.';
+const namePlayer = 'Player 1'; 
+const nameComputer = 'Computer';
 
 // Paddle
 const paddleHeight = 6;
@@ -54,9 +54,10 @@ if (isMobile.matches) {
 }
 
 // Score
-const winningScore = 5;
-const playerScoreOffset = 50;
-const computerScoreOffset = 30;
+const scoreSize = 32;
+const winningScore = 3;
+const scoreOffsetComputer = 25;
+const scoreOffsetPlayer = 31;
 let playerScore = 0;
 let computerScore = 0;
 let isGameOver = false;
@@ -77,21 +78,27 @@ function renderCanvas() {
   // Player Paddle (Bottom)
   context.fillRect(paddleBottomX, canvas.height - (paddleOffsetY + paddleHeight), paddleWidth, paddleHeight);
 
+  // Center Line
+  context.beginPath();
+  context.setLineDash([]);
+  context.moveTo(0, canvas.height / 2);
+  context.lineTo(canvas.width, canvas.height / 2);
+  context.strokeStyle = strokeColor;
+  context.lineWidth = 2;
+  context.stroke();
+
+  // Center Circle
+  context.beginPath();
+  context.arc(canvas.width / 2, canvas.height / 2, centerCircleRadius, 0, 2 * Math.PI);
+  context.strokeStyle = strokeColor;
+  context.stroke();
+
   // Dashed Top Line
   context.beginPath();
   context.setLineDash([lineGap]);
   context.moveTo(0, paddleOffsetY);
   context.lineTo(canvas.width, paddleOffsetY);
-  context.strokeStyle = strokeColor;
-  context.stroke();
-
-  // Dashed Center Line
-  context.beginPath();
-  context.setLineDash([lineGap]);
-  context.moveTo(0, canvas.height / 2);
-  context.lineTo(canvas.width, canvas.height / 2);
-  context.strokeStyle = strokeColor;
-  context.lineWidth = 2;
+  context.strokeStyle = "rgba(255, 255, 255, 0.5)";
   context.stroke();
 
   // Dashed Bottom Line
@@ -99,14 +106,7 @@ function renderCanvas() {
   context.setLineDash([lineGap]);
   context.moveTo(0, canvas.height - paddleOffsetY);
   context.lineTo(canvas.width, canvas.height - paddleOffsetY);
-  context.strokeStyle = strokeColor;
-  context.stroke();
-
-  // Dashed Center Circle
-  context.beginPath();
-  context.setLineDash([lineGap]);
-  context.arc(canvas.width / 2, canvas.height / 2, centerCircleRadius, 0, 2 * Math.PI);
-  context.strokeStyle = strokeColor;
+  context.strokeStyle = "rgba(255, 255, 255, 0.5)";
   context.stroke();
 
   // Ball
@@ -116,9 +116,20 @@ function renderCanvas() {
   context.fill();
 
   // Score
-  context.font = `${scoreSize}px ${scoreFont}`;
-  context.fillText(playerScore, 20, canvas.height / 2 + playerScoreOffset);
-  context.fillText(computerScore, 20, canvas.height / 2 - computerScoreOffset);
+  context.font = `${scoreSize}px ${playgroundFont}`;
+  context.textAlign = 'center';
+  context.textBaseline = 'bottom';
+  context.fillText(computerScore, 20, canvas.height / 2 - scoreOffsetComputer);
+  context.textBaseline = 'top';
+  context.fillText(playerScore, 20, canvas.height / 2 + scoreOffsetPlayer);
+
+  // Playground Text
+  context.font = `${playgroundFontSize}px ${playgroundFont}`;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillStyle = "rgba(255, 255, 255, 0.5)";
+  context.fillText('Pong', canvas.width/2, canvas.height * 3/16); 
+  context.fillText('Game', canvas.width/2, canvas.height * 13/16); 
 }
 
 // Create Canvas Element
