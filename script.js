@@ -13,7 +13,7 @@ const canvasPosition = screenWidth / 2 - width / 2;
 const strokeColor = 'white';
 const lineGap = 6;
 const playgroundFont = 'Arial';
-const playgroundFontSize = 40;
+const playgroundFontSize = isMobile ? 26 : 40;
 const playgroundFontColorOpaque50 = 'rgba(255, 255, 255, 0.5)';
 const playgroundFontColorOpaque90 = 'rgba(255, 255, 255, 0.9)';
 const backgroundGradientStartColor = '#0499f2';
@@ -23,8 +23,8 @@ let playgroundFontColorComputer = playgroundFontColorOpaque50;
 let playgroundFontColorPlayer = playgroundFontColorOpaque90;
 
 // Player
-const namePlayer = 'Player 1'; 
-const nameComputer = 'Computer';
+const namePlayer = 'Pong'; 
+const nameComputer = 'Ping';
 
 // Paddle
 const paddleHeight = 6;
@@ -62,8 +62,8 @@ if (isMobile.matches) {
 // Score
 const scoreSize = 32;
 const winningScore = 3;
-const scoreOffsetComputer = 25;
-const scoreOffsetPlayer = 31;
+const scoreOffsetComputer = 24;
+const scoreOffsetPlayer = 30;
 let playerScore = 0;
 let computerScore = 0;
 let isGameOver = false;
