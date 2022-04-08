@@ -23,8 +23,8 @@ let playgroundFontColorComputer = playgroundFontColorOpaque50;
 let playgroundFontColorPlayer = playgroundFontColorOpaque90;
 
 // Player
-const namePlayer = 'Pong'; 
-const nameComputer = 'Ping';
+const namePlayer = 'Player'; 
+const nameComputer = 'AI';
 
 // Paddle
 const paddleHeight = 6;
